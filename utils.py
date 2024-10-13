@@ -1,0 +1,43 @@
+from datetime import datetime
+import pandas as pd
+from collections import defaultdict
+
+
+
+def load_data(file_path):
+    return pd.read_excel(file_path, na_values=[' '], keep_default_na=False)
+
+
+def organize_products(df):
+    products = defaultdict(list)
+    for index, row in df.iterrows():
+        category = row['Категория']
+        wine = {
+            'Название': row['Название'],
+            'Сорт': row['Сорт'],
+            'Цена': row['Цена'],
+            'Картинка': row['Картинка'],
+            'Акция': row['Акция']
+        }
+        products[category].append(wine)
+    return products
+
+
+def get_years_since_foundation(foundation_date):
+    today = datetime.today().date()
+    difference = (today - foundation_date).days // 365
+
+    last_digit = difference % 10
+    last_two_digits = difference % 100
+
+    if last_two_digits in [11, 12, 13, 14]:
+        return difference, "лет"
+    elif last_digit == 1:
+        return difference, "год"
+    elif last_digit in [2, 3, 4]:
+        return difference, "года"
+    else:
+        return difference, "лет"
+
+
+
