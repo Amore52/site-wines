@@ -8,18 +8,18 @@ def load_data(file_path):
     return pd.read_excel(file_path, na_values=[' '], keep_default_na=False)
 
 
-def organize_products(df):
+def organize_products(data_file):
     products = defaultdict(list)
-    for index, row in df.iterrows():
+    for index, row in data_file.iterrows():
         category = row['Категория']
-        wine = {
+        wine_info = {
             'Название': row['Название'],
             'Сорт': row['Сорт'],
             'Цена': row['Цена'],
             'Картинка': row['Картинка'],
             'Акция': row['Акция']
         }
-        products[category].append(wine)
+        products[category].append(wine_info)
     return products
 
 

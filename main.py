@@ -25,15 +25,14 @@ def save_rendered_page(rendered_page, output_file):
 
 
 def main():
-    df = load_data('wine3.xlsx')
-    products = organize_products(df)
+    data_file = load_data('wine3.xlsx')
+    products = organize_products(data_file)
     foundation_date = datetime(1919, 1, 1).date()
     years, year_form = get_years_since_foundation(foundation_date)
     rendered_page = render_template(products, years, year_form)
     save_rendered_page(rendered_page, 'index.html')
 
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-    print("Сервер запущен на http://0.0.0.0:8000")
     server.serve_forever()
 
 
