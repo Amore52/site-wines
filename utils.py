@@ -26,18 +26,20 @@ def organize_products(data_file):
 def get_years_since_foundation(foundation_date):
     today = datetime.today().date()
     difference = (today - foundation_date).days // 365
+    return difference
 
-    last_digit = difference % 10
-    last_two_digits = difference % 100
+def get_year_form(years):
+    last_digit = years % 10
+    last_two_digits = years % 100
 
     if last_two_digits in [11, 12, 13, 14]:
-        return difference, "лет"
+        return "лет"
     elif last_digit == 1:
-        return difference, "год"
+        return "год"
     elif last_digit in [2, 3, 4]:
-        return difference, "года"
+        return "года"
     else:
-        return difference, "лет"
+        return "лет"
 
 
 

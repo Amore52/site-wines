@@ -1,8 +1,12 @@
+import argparse
+import os
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
-from utils import load_data, organize_products, get_years_since_foundation
+from utils import load_data, organize_products, get_years_since_foundation, get_year_form
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 def render_template(products, years, year_form):
@@ -25,10 +29,15 @@ def save_rendered_page(rendered_page, output_file):
 
 
 def main():
-    data_file = load_data('wine3.xlsx')
+    parser = argparse.ArgumentParser(description="Загрузчик данных веб-сайта вин.")
+    parser.add_argument('--data_file', type=str, default=os.getenv('DATA_FILE'),
+                        help='Путь до таблицы с данными.')
+    args = parser.parse_args()
+    data_file = load_data(args.data_file)
     products = organize_products(data_file)
     foundation_date = datetime(1919, 1, 1).date()
-    years, year_form = get_years_since_foundation(foundation_date)
+    years = get_years_since_foundation(foundation_date)
+    year_form = get_year_form(years)
     rendered_page = render_template(products, years, year_form)
     save_rendered_page(rendered_page, 'index.html')
 
