@@ -32,7 +32,7 @@ def main():
     rendered_page = render_template(products, years, year_form)
     save_rendered_page(rendered_page, 'index.html')
 
-    server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
+    server = HTTPServer(('127.0.0.1', 8000), SimpleHTTPRequestHandler)
     server.serve_forever()
 
 

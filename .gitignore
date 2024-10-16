@@ -1,3 +1,32 @@
-env/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# IDE
+.idea/
 .vscode/
 
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv/
+venv/
+env/
+
+# Test results
+coverage/
+*.cover
+
+# OS generated files
+.DS_Store
+Thumbs.db
